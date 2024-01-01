@@ -4,6 +4,7 @@ let timerInterval; // Used to store the interval ID for updating the timer
 let timeRemaining = 0;
 let score = 0;
 const feedback = document.getElementById('feedback');
+let statusAnswer = 'incorrect';
 
 document.getElementById('start').addEventListener('click', startQuiz);
 document.getElementById('submit').addEventListener('click', startScore);
@@ -57,13 +58,8 @@ function displayQuestion() {
             button.setAttribute('data-status', 'incorrect');
         }
         button.addEventListener('click', function () {
-
-            feedback.classList.remove('hide');
-            if (this.dataset.status === 'correct') {
-                feedback.innerText = 'CORRECT!'
-            } else {
-                feedback.innerText = 'INCORRECT!'
-            }
+            statusAnswer = button.dataset.status;
+            showStatus();
             questionTitle.innerHTML = '';
             choices.innerHTML = '';
             if (currentQuestionIndex === questions.length) {
@@ -91,4 +87,19 @@ function startScore() {
 
 function clearHighScore() {
 
+}
+
+function showStatus() {
+    let statusMessage;
+    feedback.classList.remove('hide');
+    if (statusAnswer === 'correct') {
+        statusMessage = 'CORRECT!';
+    } else {
+        statusMessage = 'INCORRECT!';
+    }
+    feedback.innerText = statusMessage;
+    setTimeout(function() {
+        feedback.innerText = '';
+    feedback.classList.toggle('hide');
+    }, 1000);
 }
