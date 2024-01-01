@@ -3,7 +3,7 @@ let currentQuestionIndex = 0  // Keeps track of the index of the current questio
 let timerInterval; // Used to store the interval ID for updating the timer
 let timeRemaining = 0;
 let score = 0;
-
+const feedback = document.getElementById('feedback');
 
 document.getElementById('start').addEventListener('click', startQuiz);
 document.getElementById('submit').addEventListener('click', startScore);
@@ -17,8 +17,8 @@ function startQuiz() {
     // Show the timer
     document.querySelector('.timer').classList.remove('hide');
 
-    // show the question section
     document.getElementById('questions').classList.remove('hide');
+    // show the question section
 
     // start the timer
 
@@ -51,8 +51,33 @@ function displayQuestion() {
     for (let i = 0; i < question.choices.length; i++) {
         const button = document.createElement('button');
         button.innerText =`${i+1}. ${question.choices[i]}`
+        if (i === question.correctAnswer){
+            button.setAttribute('data-status', 'correct');
+        } else {
+            button.setAttribute('data-status', 'incorrect');
+        }
+        button.addEventListener('click', function() {
+            feedback.classList.remove('hide');
+            if (this.dataset.status === 'correct'){
+                feedback.innerText = 'CORRECT!'
+            } else {
+                feedback.innerText = 'INCORRECT!'
+            }
+        })
         choices.appendChild(button);
 
     }
+
+}
+function endQuiz() {
+
+}
+
+function startScore() {
+
+}
+
+
+function clearHighScore() {
 
 }
