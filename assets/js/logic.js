@@ -95,6 +95,7 @@ function showStatus() {
     if (statusAnswer === 'correct') {
         statusMessage = 'CORRECT!';
     } else {
+        timeRemaining -= 10;
         statusMessage = 'INCORRECT!';
     }
     feedback.innerText = statusMessage;
