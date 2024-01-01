@@ -50,28 +50,32 @@ function displayQuestion() {
     questionTitle.innerText = question.questionText;
     for (let i = 0; i < question.choices.length; i++) {
         const button = document.createElement('button');
-        button.innerText =`${i+1}. ${question.choices[i]}`
-        if (i === question.correctAnswer){
+        button.innerText = `${i + 1}. ${question.choices[i]}`
+        if (i === question.correctAnswer) {
             button.setAttribute('data-status', 'correct');
         } else {
             button.setAttribute('data-status', 'incorrect');
         }
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
 
             feedback.classList.remove('hide');
-            if (this.dataset.status === 'correct'){
+            if (this.dataset.status === 'correct') {
                 feedback.innerText = 'CORRECT!'
             } else {
                 feedback.innerText = 'INCORRECT!'
             }
-            currentQuestionIndex++;
             questionTitle.innerHTML = '';
             choices.innerHTML = '';
+            if (currentQuestionIndex === questions.length) {
+                endQuiz();
+            }
+            currentQuestionIndex++;
+
 
             displayQuestion();
         })
         choices.appendChild(button);
-        
+
 
     }
 
