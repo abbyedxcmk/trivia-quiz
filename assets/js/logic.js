@@ -5,6 +5,7 @@ let timeRemaining = 0;
 let score = 0;
 const feedback = document.getElementById('feedback');
 let statusAnswer = 'incorrect';
+let quizEnded = false;
 
 document.getElementById('start').addEventListener('click', startQuiz);
 document.getElementById('submit').addEventListener('click', startScore);
@@ -45,10 +46,11 @@ function updateTimerDisplay() {
 
 // Functiion to display a question
 function displayQuestion() {
-
-    const question = questions[currentQuestionIndex];
+    if (!quizEnded){
+        const question = questions[currentQuestionIndex];
     const questionTitle = document.getElementById('question-title');
     const choices = document.getElementById('choices');
+    console.log(question);
     questionTitle.innerText = question.questionText;
     for (let i = 0; i < question.choices.length; i++) {
         const button = document.createElement('button');
@@ -66,9 +68,14 @@ function displayQuestion() {
             if (currentQuestionIndex === questions.length - 1) {
                 score = timeRemaining;
                 document.getElementById('time').textContent = 0;
+                currentQuestionIndex = 0;
+
+                quizEnded = true;
                 endQuiz();
+            } else {
+                currentQuestionIndex++;
+
             }
-            currentQuestionIndex++;
 
 
             displayQuestion();
@@ -77,6 +84,9 @@ function displayQuestion() {
 
 
     }
+
+    }
+    
 
 }
 function endQuiz() {
