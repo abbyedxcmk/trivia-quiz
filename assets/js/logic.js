@@ -17,7 +17,7 @@ function startQuiz() {
 
     // Show the timer
     document.querySelector('.timer').classList.remove('hide');
-    
+
     // show the question section
     document.getElementById('questions').classList.remove('hide');
 
@@ -63,7 +63,7 @@ function displayQuestion() {
             showStatus();
             questionTitle.innerHTML = '';
             choices.innerHTML = '';
-            if (currentQuestionIndex === questions.length -1) {
+            if (currentQuestionIndex === questions.length - 1) {
                 score = timeRemaining;
                 document.getElementById('time').textContent = 0;
                 endQuiz();
@@ -80,17 +80,33 @@ function displayQuestion() {
 
 }
 function endQuiz() {
-clearInterval(timerInterval);
-document.getElementById('final-score').innerText = score;
-// show the question section
-document.getElementById('questions').classList.add('hide');
-document.getElementById('end-screen').classList.remove('hide');
+    clearInterval(timerInterval);
+    document.getElementById('final-score').innerText = score;
+    // show the question section
+    document.getElementById('questions').classList.add('hide');
+    document.getElementById('end-screen').classList.remove('hide');
+
 
 }
 
-function startScore() {
+function startScore(event) {
+    event.preventDefault();
+    let initials = document.getElementById('initials').value;
+    const highScore = {
+        userInitials: initials,
+        score: score,
+
+    }
+    let highScores = JSON.parse(localStorage.getItem('highScores'));
+    if (highScores === null) {
+        highScores = []
+    }
+    highScores.push(highScore);
+
+    localStorage.setItem('highScores', JSON.stringify(highScores));
 
 }
+
 
 
 function clearHighScore() {
@@ -107,8 +123,8 @@ function showStatus() {
         statusMessage = 'INCORRECT!';
     }
     feedback.innerText = statusMessage;
-    setTimeout(function() {
+    setTimeout(function () {
         feedback.innerText = '';
-    feedback.classList.toggle('hide');
+        feedback.classList.toggle('hide');
     }, 1000);
 }
