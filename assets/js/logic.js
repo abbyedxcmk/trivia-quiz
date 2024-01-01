@@ -77,6 +77,7 @@ function displayQuestion() {
 
 }
 function endQuiz() {
+clearInterval(timerInterval);
 
 }
 
