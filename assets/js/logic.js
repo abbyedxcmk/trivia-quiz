@@ -17,8 +17,8 @@ function startQuiz() {
     // Show the timer
     document.querySelector('.timer').classList.remove('hide');
 
-// show the question section
-document.getElementById('questions').classList.remove('hide');
+    // show the question section
+    document.getElementById('questions').classList.remove('hide');
 
     // start the timer
 
@@ -29,7 +29,7 @@ document.getElementById('questions').classList.remove('hide');
             endQuiz();
 
         }
-    updateTimerDisplay();
+        updateTimerDisplay();
 
     }, 1000);
     displayQuestion();
@@ -48,6 +48,11 @@ function displayQuestion() {
     const questionTitle = document.getElementById('question-title');
     const choices = document.getElementById('choices');
     questionTitle.innerText = question.questionText;
+    for (let i = 0; i < question.choices.length; i++) {
+        const button = document.createElement('button');
+        button.innerText =`${i+1}. ${question.choices[i]}`
+        choices.appendChild(button);
 
+    }
 
 }
