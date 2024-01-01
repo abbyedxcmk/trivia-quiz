@@ -57,14 +57,21 @@ function displayQuestion() {
             button.setAttribute('data-status', 'incorrect');
         }
         button.addEventListener('click', function() {
+
             feedback.classList.remove('hide');
             if (this.dataset.status === 'correct'){
                 feedback.innerText = 'CORRECT!'
             } else {
                 feedback.innerText = 'INCORRECT!'
             }
+            currentQuestionIndex++;
+            questionTitle.innerHTML = '';
+            choices.innerHTML = '';
+
+            displayQuestion();
         })
         choices.appendChild(button);
+        
 
     }
 
