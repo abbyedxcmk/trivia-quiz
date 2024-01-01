@@ -50,7 +50,6 @@ function displayQuestion() {
         const question = questions[currentQuestionIndex];
     const questionTitle = document.getElementById('question-title');
     const choices = document.getElementById('choices');
-    console.log(question);
     questionTitle.innerText = question.questionText;
     for (let i = 0; i < question.choices.length; i++) {
         const button = document.createElement('button');
@@ -67,7 +66,6 @@ function displayQuestion() {
             choices.innerHTML = '';
             if (currentQuestionIndex === questions.length - 1) {
                 score = timeRemaining;
-                document.getElementById('time').textContent = 0;
                 currentQuestionIndex = 0;
 
                 quizEnded = true;
@@ -91,6 +89,8 @@ function displayQuestion() {
 }
 function endQuiz() {
     clearInterval(timerInterval);
+    document.getElementById('time').textContent = 0;
+
     document.getElementById('final-score').innerText = score;
     // show the question section
     document.getElementById('questions').classList.add('hide');
@@ -114,6 +114,7 @@ function startScore(event) {
     highScores.push(highScore);
 
     localStorage.setItem('highScores', JSON.stringify(highScores));
+    window.location.href = './highscores.html'; 
 
 }
 
