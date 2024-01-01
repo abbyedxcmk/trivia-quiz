@@ -65,6 +65,7 @@ function displayQuestion() {
             choices.innerHTML = '';
             if (currentQuestionIndex === questions.length -1) {
                 score = timeRemaining;
+                document.getElementById('time').textContent = 0;
                 endQuiz();
             }
             currentQuestionIndex++;
