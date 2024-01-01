@@ -17,9 +17,9 @@ function startQuiz() {
 
     // Show the timer
     document.querySelector('.timer').classList.remove('hide');
-
-    document.getElementById('questions').classList.remove('hide');
+    
     // show the question section
+    document.getElementById('questions').classList.remove('hide');
 
     // start the timer
 
@@ -78,6 +78,10 @@ function displayQuestion() {
 }
 function endQuiz() {
 clearInterval(timerInterval);
+
+// show the question section
+document.getElementById('questions').classList.add('hide');
+document.getElementById('end-screen').classList.remove('hide');
 
 }
 
