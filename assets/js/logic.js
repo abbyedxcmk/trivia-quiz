@@ -27,6 +27,7 @@ function startQuiz() {
     timerInterval = setInterval(function () {
         timeRemaining--;
         if (timeRemaining <= 0) {
+            score = 0;
             endQuiz();
 
         }
@@ -62,7 +63,8 @@ function displayQuestion() {
             showStatus();
             questionTitle.innerHTML = '';
             choices.innerHTML = '';
-            if (currentQuestionIndex === questions.length) {
+            if (currentQuestionIndex === questions.length -1) {
+                score = timeRemaining;
                 endQuiz();
             }
             currentQuestionIndex++;
@@ -78,7 +80,7 @@ function displayQuestion() {
 }
 function endQuiz() {
 clearInterval(timerInterval);
-
+document.getElementById('final-score').innerText = score;
 // show the question section
 document.getElementById('questions').classList.add('hide');
 document.getElementById('end-screen').classList.remove('hide');
