@@ -28,7 +28,6 @@ function startQuiz() {
 	document.getElementById('questions').classList.remove('hide');
 
 	// start the timer
-
 	timeRemaining = 60;
 	timerInterval = setInterval(function() {
 		timeRemaining--;
@@ -36,17 +35,14 @@ function startQuiz() {
 			score = 0;
             quizEnded = true;
 			endQuiz();
-
 		}
 		updateTimerDisplay();
-
 	}, 1000);
 	displayQuestion();
 }
 
 // function to update the timer display
 function updateTimerDisplay() {
-
 	document.getElementById('time').textContent = timeRemaining;
 }
 
@@ -78,26 +74,17 @@ function displayQuestion() {
 				if (currentQuestionIndex === questions.length - 1) {
 					score = timeRemaining;
 					currentQuestionIndex = 0;
-
 					quizEnded = true;
 					endQuiz();
 					// Calculate next question index to continue the quiz
 				} else {
 					currentQuestionIndex++;
-
 				}
-
-
 				displayQuestion();
 			})
 			choices.appendChild(button);
-
-
 		}
-
 	}
-
-
 }
 
 // End quiz function removes the quiz elements and displays the score and initial input
@@ -105,13 +92,10 @@ function endQuiz() {
 	clearInterval(timerInterval);
 	document.getElementById('time').textContent = 0;
 	document.querySelector('.timer').classList.add('hide');
-
 	document.getElementById('final-score').innerText = score;
 	// show the question section
 	document.getElementById('questions').classList.add('hide');
 	document.getElementById('end-screen').classList.remove('hide');
-
-
 }
 
 // save the high score function
@@ -122,7 +106,6 @@ function startScore(event) {
 	const highScore = {
 		userInitials: initials,
 		score: score,
-
 	}
 	let highScores = JSON.parse(localStorage.getItem('highScores'));
 	// Check if there are no high scores recorded
@@ -131,15 +114,12 @@ function startScore(event) {
 	}
 	// Append a new high score to the existing ones.
 	highScores.push(highScore);
-
 	localStorage.setItem('highScores', JSON.stringify(highScores));
 	// Redirect to the highscores page
 	window.location.href = './highscores.html';
-
 }
 
-
-// show status function displays correct / incorrect message for a sec
+// show status function displays correct/incorrect message for a sec
 function showStatus() {
 	let statusMessage;
 	feedback.classList.remove('hide');
