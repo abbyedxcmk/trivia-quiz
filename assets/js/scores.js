@@ -16,6 +16,8 @@ function displayHighScores() {
 }
 
 function clearHighScore() {
-
+localStorage.removeItem('highScores');
+document.getElementById('highscores').innerHTML = '';
+displayHighScores();
 }
 displayHighScores();
