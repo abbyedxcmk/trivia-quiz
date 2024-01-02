@@ -9,7 +9,6 @@ let quizEnded = false;
 
 document.getElementById('start').addEventListener('click', startQuiz);
 document.getElementById('submit').addEventListener('click', startScore);
-document.getElementById('clear').addEventListener('click', clearHighScore);
 
 function startQuiz() {
 
@@ -29,6 +28,7 @@ function startQuiz() {
         timeRemaining--;
         if (timeRemaining <= 0) {
             score = 0;
+
             endQuiz();
 
         }
@@ -46,50 +46,51 @@ function updateTimerDisplay() {
 
 // Functiion to display a question
 function displayQuestion() {
-    if (!quizEnded){
+    if (!quizEnded) {
         const question = questions[currentQuestionIndex];
-    const questionTitle = document.getElementById('question-title');
-    const choices = document.getElementById('choices');
-    questionTitle.innerText = question.questionText;
-    for (let i = 0; i < question.choices.length; i++) {
-        const button = document.createElement('button');
-        button.innerText = `${i + 1}. ${question.choices[i]}`
-        if (i === question.correctAnswer) {
-            button.setAttribute('data-status', 'correct');
-        } else {
-            button.setAttribute('data-status', 'incorrect');
-        }
-        button.addEventListener('click', function () {
-            statusAnswer = button.dataset.status;
-            showStatus();
-            questionTitle.innerHTML = '';
-            choices.innerHTML = '';
-            if (currentQuestionIndex === questions.length - 1) {
-                score = timeRemaining;
-                currentQuestionIndex = 0;
-
-                quizEnded = true;
-                endQuiz();
+        const questionTitle = document.getElementById('question-title');
+        const choices = document.getElementById('choices');
+        questionTitle.innerText = question.questionText;
+        for (let i = 0; i < question.choices.length; i++) {
+            const button = document.createElement('button');
+            button.innerText = `${i + 1}. ${question.choices[i]}`
+            if (i === question.correctAnswer) {
+                button.setAttribute('data-status', 'correct');
             } else {
-                currentQuestionIndex++;
-
+                button.setAttribute('data-status', 'incorrect');
             }
+            button.addEventListener('click', function () {
+                statusAnswer = button.dataset.status;
+                showStatus();
+                questionTitle.innerHTML = '';
+                choices.innerHTML = '';
+                if (currentQuestionIndex === questions.length - 1) {
+                    score = timeRemaining;
+                    currentQuestionIndex = 0;
+
+                    quizEnded = true;
+                    endQuiz();
+                } else {
+                    currentQuestionIndex++;
+
+                }
 
 
-            displayQuestion();
-        })
-        choices.appendChild(button);
+                displayQuestion();
+            })
+            choices.appendChild(button);
 
+
+        }
 
     }
 
-    }
-    
 
 }
 function endQuiz() {
     clearInterval(timerInterval);
     document.getElementById('time').textContent = 0;
+    document.querySelector('.timer').classList.add('hide');
 
     document.getElementById('final-score').innerText = score;
     // show the question section
@@ -114,15 +115,11 @@ function startScore(event) {
     highScores.push(highScore);
 
     localStorage.setItem('highScores', JSON.stringify(highScores));
-    window.location.href = './highscores.html'; 
+    window.location.href = './highscores.html';
 
 }
 
 
-
-function clearHighScore() {
-
-}
 
 function showStatus() {
     let statusMessage;
